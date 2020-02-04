@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">True False</string>
+
+    <!--Main screen-->
+    <string name="true_string">Правда</string>
+    <string name="false_string">Ложь</string>
+    <string name="new_game">Новая игра</string>
+    <string name="settings">Настройки</string>
+    <string name="about_app">О приложении</string>
+    <string name="exit">Выход</string>
+    <string name="fact_number">Факт #%d</string>
+    <string name="second_left">Осталось %d секунд</string>
+    <string name="number_of_facts_answered">%d/30</string>
+
+</resources>

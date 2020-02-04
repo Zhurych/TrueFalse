@@ -1,0 +1,114 @@
+ext {
+    def kotlin = "1.3.61"
+    def ktx = "1.1.0"
+    def material = "1.2.0-alpha03"
+    def appcompat = "1.1.0"
+    def constraintlayout = "1.1.3"
+    def dagger2 = "2.21"
+    def okhttp = "3.12.1"
+    def retrofit = "2.6.2"
+    def coroutines = "1.3.0"
+    def room = "2.2.2"
+    def paging = "2.1.0"
+    def nav = "2.1.0"
+    def viewpager2 = "1.0.0"
+    def viewpagerktx = "1.2.0-rc04"
+    def circleimage = "3.0.1"
+    def picasso = "2.71828"
+    def lifecycle = '2.2.0-rc03'
+    def databinding = '3.1.4'
+    def junit_version = '4.12'
+    def systembartint = '1.0.3'
+    def gson_version = '2.8.6'
+
+    kotlinDependencies = [
+            "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin}",
+            "androidx.core:core-ktx:${ktx}"
+    ]
+
+    coreAndroidDependencies = [
+            "com.google.android.material:material:${material}",
+            "androidx.appcompat:appcompat:${appcompat}",
+            "androidx.constraintlayout:constraintlayout:${constraintlayout}"
+    ]
+
+    diDependencies = [
+            "com.google.dagger:dagger:${dagger2}",
+            "com.google.dagger:dagger-android:${dagger2}",
+            "com.google.dagger:dagger-android-support:${dagger2}"
+    ]
+
+    diPlugins = [
+            "com.google.dagger:dagger-android-processor:${dagger2}",
+            "com.google.dagger:dagger-compiler:${dagger2}"
+    ]
+
+    networkDependencies = [
+            "com.squareup.retrofit2:retrofit:${retrofit}",
+            "com.squareup.retrofit2:converter-gson:${retrofit}",
+            "com.squareup.okhttp3:logging-interceptor:${okhttp}"
+    ]
+
+    coroutinesDependencies = [
+            "org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutines}",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutines}"
+    ]
+
+    databaseDependencies = [
+            "androidx.room:room-ktx:${room}",
+            "androidx.room:room-runtime:${room}"
+    ]
+
+    databasePlugins = [
+            "androidx.room:room-compiler:${room}"
+    ]
+
+    pagingDependencies = [
+            "androidx.paging:paging-runtime-ktx:${paging}"
+    ]
+
+    navigationDependencies = [
+            "androidx.navigation:navigation-fragment-ktx:${nav}",
+            "androidx.navigation:navigation-ui-ktx:${nav}"
+    ]
+
+    viewPagerDependencies = [
+            "androidx.viewpager2:viewpager2:${viewpager2}",
+            "androidx.fragment:fragment-ktx:${viewpagerktx}"
+    ]
+
+    circleImageDependencies = [
+            "de.hdodenhof:circleimageview:${circleimage}"
+    ]
+
+    picassoDependencies = [
+            "com.squareup.picasso:picasso:${picasso}"
+    ]
+
+    lifecycleDependencies = [
+            "androidx.lifecycle:lifecycle-extensions:${lifecycle}",
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycle}",
+            "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycle}",
+            "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycle}"
+    ]
+
+    lifecyclePlugins = [
+            "androidx.lifecycle:lifecycle-compiler:${lifecycle}"
+    ]
+
+    databindingPlugins = [
+            "com.android.databinding:compiler:${databinding}"
+    ]
+
+    juntDependenciesOnly = [
+            "junit:junit:${junit_version}"
+    ]
+
+    systemBarDependencies = [
+            "com.readystatesoftware.systembartint:systembartint:${systembartint}"
+    ]
+
+    gsonDependencies = [
+            "com.google.code.gson:gson:${gson_version}"
+    ]
+}
