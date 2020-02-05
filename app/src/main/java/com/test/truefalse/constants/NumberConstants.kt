@@ -9,6 +9,6 @@ const val ID_THEME_PEOPLE_AND_ANIMALS = 6
 const val ID_THEME_FACTS_ABOUT_THE_WORLD = 7
 
 // Complexity
-const val EASY = 30_000L
-const val MEDIUM = 20_000L
-const val HARD = 10_000L
+const val EASY = 31_000L
+const val MEDIUM = 21_000L
+const val HARD = 11_000L

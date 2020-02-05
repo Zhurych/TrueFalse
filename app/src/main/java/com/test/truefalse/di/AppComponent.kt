@@ -14,7 +14,7 @@ import javax.inject.Singleton
         ViewModelBinder::class,
         DatabaseModule::class,
         RepositoryModule::class,
-        MainVMDependencies::class
+        GameVMDependencies::class
     ]
 )
 @Singleton

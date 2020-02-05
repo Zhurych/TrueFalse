@@ -5,11 +5,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
-        <variable
-            name="vm"
-            type="com.test.truefalse.viewModel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,104 +32,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tbMainActivity" />
 
-        <TextView
-            android:id="@+id/tvMainActivityFactNumber"
-            factsAnswered="@{vm.numberOfFactsAnswered}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineToolbarHeight"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="27/30" />
-
-        <ProgressBar
-            android:id="@+id/hpbMainActivity"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="48dp"
-            android:indeterminate="false"
-            android:max="30"
-            android:progress="@{vm.numberOfFactsAnswered}"
-            app:layout_constraintBottom_toBottomOf="@+id/tvMainActivityFactNumber"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvMainActivityFactNumber"
-            app:layout_constraintTop_toTopOf="@+id/tvMainActivityFactNumber" />
-
-        <TextView
-            android:id="@+id/tvMainActivityTimer"
-            timer="@{vm.secondsLeft}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/colorRed"
-            android:visibility="@{vm.isPlaying() ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbMainActivity"
-            tools:text="Осталось 7 секунд" />
-
-        <TextView
-            android:id="@+id/tvMainActivityFactTitle"
-            factNumber="@{vm.numberOfFactsAnswered}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/textColor"
-            android:textSize="26sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMainActivityTimer"
-            tools:text="Факт #27" />
-
-        <TextView
-            android:id="@+id/tvMainActivityFact"
+        <fragment
+            android:id="@+id/nav_host_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal"
-            android:text="@{vm.currentFact.name}"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonMainActivityTrue"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMainActivityFactTitle"
-            tools:text="Древние римляне чистили зубы высушенными и измельченными мозгами мышей вместо зубной пасты." />
-
-        <Button
-            android:id="@+id/buttonMainActivityFalse"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="96dp"
-            android:background="@drawable/background_button"
-            android:onClick="@{(view) -> vm.onButtonTrueClick(view)}"
-            android:text="@string/false_string"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonMainActivityTrue"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Button
-            android:id="@+id/buttonMainActivityTrue"
-            android:layout_width="130dp"
-            android:layout_height="50dp"
-            android:background="@drawable/background_button"
-            android:onClick="@{(view) -> vm.onButtonTrueClick(view)}"
-            android:text="@string/true_string"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonMainActivityFalse"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonMainActivityFalse" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/main_graph" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineToolbarHeight"

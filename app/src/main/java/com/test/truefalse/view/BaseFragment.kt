@@ -1,22 +1,21 @@
 package com.test.truefalse.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.test.truefalse.R
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
-abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : DaggerFragment() {
+abstract class BaseFragment<VM : ViewModel, VB : ViewDataBinding> : DaggerFragment() {
 
     @Inject
     protected lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -57,7 +56,12 @@ abstract class BaseFragment<VB : ViewDataBinding, VM : ViewModel> : DaggerFragme
             e.printStackTrace()
         }
 
+        setHasOptionsMenu(true)
         afterCreateView(view, savedInstanceState)
         return view
+    }
+
+     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_main_activity, menu)
     }
 }

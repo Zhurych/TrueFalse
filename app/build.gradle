@@ -46,4 +46,5 @@ dependencies {
     kapt lifecyclePlugins
     kapt databindingPlugins
     implementation juntDependenciesOnly
+    implementation navigationDependencies
 }

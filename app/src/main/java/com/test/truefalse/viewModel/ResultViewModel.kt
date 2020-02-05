@@ -3,8 +3,9 @@ package com.test.truefalse.viewModel
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-class MainViewModel
+class ResultViewModel
 @Inject constructor(
 
 ) : ViewModel() {
+
 }

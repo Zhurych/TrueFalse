@@ -2,7 +2,9 @@ package com.test.truefalse.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.test.truefalse.viewModel.GameViewModel
 import com.test.truefalse.viewModel.MainViewModel
+import com.test.truefalse.viewModel.ResultViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,5 +22,15 @@ abstract class ViewModelBinder {
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel::class)
-    protected abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+    internal abstract fun mainViewModel(viewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GameViewModel::class)
+    internal abstract fun gameViewModel(viewModel: GameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ResultViewModel::class)
+    internal abstract fun resultViewModel(viewModel: ResultViewModel): ViewModel
 }
