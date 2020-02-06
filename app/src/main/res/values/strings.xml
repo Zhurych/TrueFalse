@@ -13,7 +13,9 @@
     <string name="number_of_facts_answered">%d/30</string>
 
     <!--Result screen-->
-    <string name="correct_answer">Верно:</string>
-    <string name="wrong_answer">Неверно:</string>
+    <string name="facts_answered">30/30</string>
+    <string name="result">Результат</string>
+    <string name="correct_answer">Верно: %d</string>
+    <string name="wrong_answer">Неверно: %d</string>
 
 </resources>

@@ -8,4 +8,5 @@ const val THEME_SCIENCE_AND_ART = "Наука и искусство"
 const val THEME_PEOPLE_AND_ANIMALS = "Люди и животные"
 const val THEME_FACTS_ABOUT_THE_WORLD = "Факты о Мире"
 
-const val ID_UNUSED_FACTS_KEY = "idUnusedFacts"
+const val ID_UNUSED_FACTS_KEY = "idUnusedFactsKey"
+const val LIST_ANSWERS_KEY = "listAnswersKey"

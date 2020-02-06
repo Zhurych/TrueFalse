@@ -18,12 +18,12 @@
 
         <TextView
             android:id="@+id/tvGameFragmentFactNumber"
-            factsAnswered="@{vm.numberOfFactsAnswered}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/textColor"
             android:textSize="16sp"
+            app:factsAnswered="@{vm.numberOfFactsAnswered}"
             app:layout_constraintBottom_toTopOf="@+id/guidelineToolbarHeight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +47,6 @@
 
         <TextView
             android:id="@+id/tvGameFragmentTimer"
-            timer="@{vm.secondsLeft}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -56,16 +55,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guidelineToolbarHeight"
+            app:timer="@{vm.secondsLeft}"
             tools:text="Осталось 7 секунд" />
 
         <TextView
             android:id="@+id/tvGameFragmentFactTitle"
-            factNumber="@{vm.numberOfFactsAnswered}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textColor="@color/textColor"
             android:textSize="26sp"
+            app:factNumber="@{vm.numberOfFactsAnswered}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvGameFragmentTimer"

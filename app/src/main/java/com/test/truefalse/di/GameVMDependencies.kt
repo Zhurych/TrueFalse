@@ -6,10 +6,12 @@ import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.MutableLiveData
 import com.test.truefalse.database.Fact
+import com.test.truefalse.model.Answer
 import dagger.Module
 import dagger.Provides
 import java.util.*
 import javax.inject.Singleton
+import kotlin.collections.ArrayList
 
 @Module
 class GameVMDependencies {
@@ -32,4 +34,7 @@ class GameVMDependencies {
 
     @Provides
     internal fun provideLiveData() = MutableLiveData<Boolean>()
+
+    @Provides
+    internal fun provideListAnswers() = ArrayList<Answer>()
 }
