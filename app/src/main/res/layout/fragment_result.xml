@@ -12,24 +12,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvGameFragmentFactNumber"
+            android:id="@+id/tvResultFragmentFactNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/facts_answered"
             android:textColor="@color/textColor"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineToolbarHeight"
+            app:layout_constraintBottom_toTopOf="@id/guidelineToolbarHeight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="30/30" />
 
         <ProgressBar
-            android:id="@+id/hpbGameFragment"
+            android:id="@+id/hpbResultFragment"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,75 +37,113 @@
             android:indeterminate="false"
             android:max="30"
             android:progress="30"
-            app:layout_constraintBottom_toBottomOf="@+id/tvGameFragmentFactNumber"
+            app:layout_constraintBottom_toBottomOf="@+id/tvResultFragmentFactNumber"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvGameFragmentFactNumber"
-            app:layout_constraintTop_toTopOf="@+id/tvGameFragmentFactNumber"
+            app:layout_constraintStart_toEndOf="@+id/tvResultFragmentFactNumber"
+            app:layout_constraintTop_toTopOf="@+id/tvResultFragmentFactNumber"
             tools:progress="27" />
 
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/result"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidelineToolbarHeight"
-            tools:text="Результат" />
-
-        <ImageView
-            android:id="@+id/ivStars"
-            android:layout_width="192dp"
-            android:layout_height="128dp"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvResult"
-            app:stars="@{vm.percentCorrectAnswers}"
-            tools:src="@drawable/ic_stars_1_5_white" />
-
-        <TextView
-            android:id="@+id/tvCorrectAnswer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/textColor"
-            android:textSize="18sp"
-            app:correct="@{vm.correctAnswers}"
-            app:layout_constraintEnd_toStartOf="@+id/tvWrongAnswer"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivStars"
-            tools:text="Верно: 16" />
-
-        <TextView
-            android:id="@+id/tvWrongAnswer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColor"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvCorrectAnswer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tvCorrectAnswer"
-            app:layout_constraintTop_toTopOf="@+id/tvCorrectAnswer"
-            app:wrong="@{vm.wrongAnswers}"
-            tools:text="Неверно: 14" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvResultFragment"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvCorrectAnswer" />
+            app:layout_constraintTop_toTopOf="@+id/guidelineToolbarHeight">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:elevation="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll">
+
+                    <TextView
+                        android:id="@+id/tvResult"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:text="@string/result"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Результат" />
+
+                    <ImageView
+                        android:id="@+id/ivStars"
+                        android:layout_width="192dp"
+                        android:layout_height="128dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvResult"
+                        app:stars="@{vm.percentCorrectAnswers}"
+                        tools:src="@drawable/ic_stars_1_5_white" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="enterAlways">
+
+                    <TextView
+                        android:id="@+id/tvCorrectAnswer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/correct_answer_background"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/textColor"
+                        android:textSize="20sp"
+                        app:correct="@{vm.correctAnswers}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvWrongAnswer"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Верно: 14" />
+
+                    <TextView
+                        android:id="@+id/tvWrongAnswer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/wrong_answer_background"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/textColor"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvCorrectAnswer"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvCorrectAnswer"
+                        app:layout_constraintTop_toTopOf="@+id/tvCorrectAnswer"
+                        app:wrong="@{vm.wrongAnswers}"
+                        tools:text="Неверно: 16" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@drawable/shadow_toolbar" />
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvResultFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineToolbarHeight"

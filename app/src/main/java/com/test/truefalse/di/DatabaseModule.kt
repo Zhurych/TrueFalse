@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.io.InputStream
 import java.nio.charset.Charset
-import java.util.concurrent.Executors
+import java.util.*
 import javax.inject.Singleton
 
 
@@ -26,36 +26,41 @@ class DatabaseModule {
 
     @Singleton
     @Provides
-    internal fun provideDatabase(application: Application, listFacts: List<Fact>): AppDatabase {
+    internal fun provideDatabase(application: Application): AppDatabase {
         appDatabase = Room.databaseBuilder(application, AppDatabase::class.java, "database")
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
+                    Log.d("MyLogs", "Callback при создании базыю onCreate")
                     super.onCreate(db)
+
+                    val am = application.assets
+                    val inputStream: InputStream = am.open("facts.json")
+
+                    val buffer = ByteArray(inputStream.available())
+                    inputStream.read(buffer)
+                    inputStream.close()
+
+                    val gson = Gson()
+
+                    val listFacts =
+                        gson.fromJson(String(buffer, Charset.forName("UTF-8")), Array<Fact>::class.java)
+
+                    val listOrder = ArrayList<Int>((listFacts.indices).shuffled())
+
+                    for ((index, random) in listOrder.withIndex()) {
+                        Log.d("MyLogs", "создание базы. index = $index")
+                        listFacts[index].order = random
+                    }
+
+                    Log.d("MyLogs", "создание базы. Размер = ${listFacts.size}")
+
                     CoroutineScope(IO).launch {
-                        appDatabase.factDao().insertFacts(listFacts)
+                        appDatabase.factDao().insertFacts(listFacts.toList())
                     }
                 }
             }).build()
 
        // Log.d("MyLogs", "Dagger. provideDatabase. var appDatabase = $appDatabase")
         return appDatabase
-    }
-
-    @Singleton
-    @Provides
-    internal fun provideArrayFact(application: Application): List<Fact> {
-        val am = application.assets
-        val inputStream: InputStream = am.open("facts.json")
-
-        val buffer = ByteArray(inputStream.available())
-        inputStream.read(buffer)
-        inputStream.close()
-
-        val gson = Gson()
-
-        val result =
-            gson.fromJson(String(buffer, Charset.forName("UTF-8")), Array<Fact>::class.java)
-
-        return result.toList()
     }
 }

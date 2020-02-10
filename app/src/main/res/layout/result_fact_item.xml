@@ -14,7 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp">
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp">
 
         <TextView
             android:id="@+id/tvFactItem"
@@ -23,20 +25,25 @@
             android:layout_marginEnd="16dp"
             android:text="@{answer.fact}"
             android:textColor="@color/textColor"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivAnswerItem"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Голливуд был создан Харви Уилкоксом, известным противником спиртных напитков. Он и его жена хотели, чтобы будущий город был основан на религиозных принципах, поэтому они предоставляли бесплатную землю всем, кто хочет построить церковь." />
 
-        <ImageView
+        <TextView
             android:id="@+id/ivAnswerItem"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
             app:answer="@{answer}"
             app:layout_constraintBottom_toBottomOf="@id/tvFactItem"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvFactItem"
-            tools:src="@drawable/ic_true_red" />
+            tools:background="@drawable/wrong_answer_background"
+            tools:text="Правда" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

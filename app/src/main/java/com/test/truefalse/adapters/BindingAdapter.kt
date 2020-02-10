@@ -2,6 +2,7 @@ package com.test.truefalse.adapters
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.test.truefalse.App
 import com.test.truefalse.R
@@ -36,11 +37,31 @@ object BindingAdapter {
 
     @BindingAdapter("answer")
     @JvmStatic
-    fun setAnswer(view: ImageView, answer: Answer) {
-        if (answer.isTrueAnswer && answer.isTrueFact) view.setImageResource(R.drawable.ic_true_green)
-        else if (answer.isTrueAnswer && !answer.isTrueFact) view.setImageResource(R.drawable.ic_true_red)
-        else if (!answer.isTrueAnswer && answer.isTrueFact) view.setImageResource(R.drawable.ic_false_red)
-        else if (!answer.isTrueAnswer && !answer.isTrueFact) view.setImageResource(R.drawable.ic_false_green)
+    fun setAnswer(view: TextView, answer: Answer) {
+        val context = App.applicationContext()
+
+        when {
+            answer.userAnswer && answer.factAnswer -> {
+                view.text = context.getString(R.string.true_string)
+                view.background =
+                    ContextCompat.getDrawable(context, R.drawable.correct_answer_background)
+            }
+            answer.userAnswer && !answer.factAnswer -> {
+                view.text = context.getString(R.string.true_string)
+                view.background =
+                    ContextCompat.getDrawable(context, R.drawable.wrong_answer_background)
+            }
+            !answer.userAnswer && answer.factAnswer -> {
+                view.text = context.getString(R.string.false_string)
+                view.background =
+                    ContextCompat.getDrawable(context, R.drawable.wrong_answer_background)
+            }
+            !answer.userAnswer && !answer.factAnswer -> {
+                view.text = context.getString(R.string.false_string)
+                view.background =
+                    ContextCompat.getDrawable(context, R.drawable.correct_answer_background)
+            }
+        }
     }
 
     @BindingAdapter("correct")

@@ -19,10 +19,6 @@ class GameVMDependencies {
     @Provides
     internal fun provideObservableBoolean() = ObservableBoolean(false)
 
-    @Singleton
-    @Provides
-    internal fun provideArrayDeque() = ArrayDeque<Int>((0..252).shuffled())
-
     @Provides
     internal fun provideObservableInt() = ObservableInt(0)
 

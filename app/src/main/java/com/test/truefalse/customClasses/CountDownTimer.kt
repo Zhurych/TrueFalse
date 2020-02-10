@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Message
 import android.os.SystemClock
+import android.util.Log
 
 /*
  * Copyright (C) 2008 The Android Open Source Project
@@ -134,9 +135,9 @@ abstract class CountDownTimer
                     val millisLeft =
                         mStopTimeInFuture - SystemClock.elapsedRealtime()
                     if (millisLeft <= 0) {
-                        onFinish()
+                        Log.d("MyLogs", "handler в таймере. Вызывается при повторном запуске gameFragment или нажатии на меню.")
                     } else if (millisLeft < mCountdownInterval) { // no tick, just delay until done
-                        sendMessageDelayed(obtainMessage(MSG), millisLeft)
+                        onFinish()
                     } else {
                         val lastTickStart = SystemClock.elapsedRealtime()
                         onTick(millisLeft)

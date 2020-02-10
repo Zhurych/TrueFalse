@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.test.truefalse.R
 import com.test.truefalse.databinding.FragmentGameBinding
 import com.test.truefalse.view.BaseFragment
@@ -18,12 +18,14 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>() {
 
     override fun afterCreateView(view: View, savedInstanceState: Bundle?) {
         Log.d("MyLogs", "GameFragment. afterCreateView")
-        Log.d(
-            "MyLogs",
-            "GameFragment. количество неиспользованных фактов = ${vm.idUnusedFacts.size}"
-        )
 
         vb.vm = vm
+
+        vm.initNavController(findNavController())
+
+        if (savedInstanceState == null) {
+            vm.getUnusedFacts()
+        }
 
         // Set scroll on TextView
         vb.tvGameFragmentFact.movementMethod = ScrollingMovementMethod()
@@ -31,36 +33,24 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>() {
         val actionBar = (activity as AppCompatActivity).supportActionBar
         actionBar?.addOnMenuVisibilityListener { isVisible ->
             if (isVisible) { // menu expanded
-                vm.isPause = true
+                vm.isPaused.set(true)
                 vm.countDownTimer.pause()
                 Log.d("MyLogs", "Меню открыто")
             } else { // menu collapsed
-                if (vm.isPause) vm.countDownTimer.resume()
+                if (vm.isPaused.get()) vm.countDownTimer.resume()
                 else vm.countDownTimer.start()
-                vm.isPause = false
+                vm.isPaused.set(false)
                 Log.d("MyLogs", "Меню закрыто")
             }
         }
-
-        vm.liveFacts.observe(this, Observer {
-            vm.currentFact.set(it?.get(vm.idUnusedFacts.pollLast() ?: return@Observer))
-        })
     }
 
-    @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d("MyLogs", "GameFragment. onOptionsItemSelected")
         when (item.itemId) {
             R.id.menuNewGame -> {
-                vm.countDownTimer.cancel()
-                vm.numberOfFactsAnswered.set(0)
-                if (vm.idUnusedFacts.isNotEmpty()) {
-                    vm.currentFact.set(vm.liveFacts.value?.get(vm.idUnusedFacts.pollLast()))
-                    vm.isPlaying.set(false)
-                    Log.d("MyLogs", "конец реализации кнопки Новая игра")
-                } else {
-                    TODO("РЕАЛИЗОВАТЬ ЛОГИКУ, КОГДА ЗАКОНЧИЛИСЬ ФАКТЫ")
-                }
+                vm.newGame()
+                Log.d("MyLogs", "конец реализации кнопки Новая игра")
                 return true
             }
             R.id.menuSetting -> {

@@ -12,10 +12,25 @@
         <action
             android:id="@+id/action_gameFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_defeatFragment"
+            app:destination="@+id/defeatFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.test.truefalse.view.fragments.ResultFragment"
-        android:label="ResultFragment" />
+        android:label="ResultFragment" >
+        <action
+            android:id="@+id/action_resultFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/defeatFragment"
+        android:name="com.test.truefalse.view.fragments.DefeatFragment"
+        android:label="DefeatFragment" >
+        <action
+            android:id="@+id/action_defeatFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
 </navigation>

@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import com.test.truefalse.model.Answer
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class ResultViewModel
@@ -24,8 +26,10 @@ class ResultViewModel
         var wrongCount = 0
 
         for ((fact, isTrueFact, isTrueAnswer) in listAnswers) {
-            if (isTrueAnswer && isTrueFact || !isTrueAnswer && !isTrueFact) correctCount++
-            else if (isTrueAnswer && !isTrueFact || !isTrueAnswer && isTrueFact) wrongCount++
+            when (isTrueAnswer) {
+                isTrueFact -> correctCount++
+                else -> wrongCount++
+            }
         }
 
         val percent = (correctCount * 100.0 / (correctCount + wrongCount)).roundToInt()

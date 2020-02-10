@@ -24,7 +24,7 @@
             android:textColor="@color/textColor"
             android:textSize="16sp"
             app:factsAnswered="@{vm.numberOfFactsAnswered}"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineToolbarHeight"
+            app:layout_constraintBottom_toTopOf="@id/guidelineToolbarHeight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="27/30" />
@@ -115,6 +115,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/buttonGameFragmentFalse" />
+
+        <TextView
+            android:id="@+id/tvPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pause"
+            android:textColor="@color/colorRed"
+            android:textSize="28sp"
+            android:visibility="@{vm.isPaused ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineToolbarHeight"

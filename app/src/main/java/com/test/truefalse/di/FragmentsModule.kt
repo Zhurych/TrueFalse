@@ -1,5 +1,6 @@
 package com.test.truefalse.di
 
+import com.test.truefalse.view.fragments.DefeatFragment
 import com.test.truefalse.view.fragments.GameFragment
 import com.test.truefalse.view.fragments.ResultFragment
 import dagger.Module
@@ -13,4 +14,7 @@ abstract class FragmentsModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeResultFragment(): ResultFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeDefeatFragment(): DefeatFragment
 }

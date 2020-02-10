@@ -2,6 +2,8 @@ package com.test.truefalse.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.test.truefalse.view.fragments.DefeatFragment
+import com.test.truefalse.viewModel.DefeatViewModel
 import com.test.truefalse.viewModel.GameViewModel
 import com.test.truefalse.viewModel.MainViewModel
 import com.test.truefalse.viewModel.ResultViewModel
@@ -33,4 +35,9 @@ abstract class ViewModelBinder {
     @IntoMap
     @ViewModelKey(ResultViewModel::class)
     internal abstract fun resultViewModel(viewModel: ResultViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DefeatViewModel::class)
+    internal abstract fun defeatViewModel(viewModel: DefeatViewModel): ViewModel
 }

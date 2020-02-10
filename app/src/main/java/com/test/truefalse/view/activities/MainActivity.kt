@@ -13,7 +13,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun afterCreate(savedInstanceState: Bundle?) {
         title = ""
-        // Log.d("MyLogs", "afterCreate")
         setSupportActionBar(vb.tbMainActivity)
     }
 }

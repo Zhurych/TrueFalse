@@ -13,8 +13,8 @@ import javax.inject.Singleton
         ActivityModule::class,
         ViewModelBinder::class,
         DatabaseModule::class,
-        RepositoryModule::class,
-        GameVMDependencies::class
+        GameVMDependencies::class,
+        DataSourceModule::class
     ]
 )
 @Singleton
