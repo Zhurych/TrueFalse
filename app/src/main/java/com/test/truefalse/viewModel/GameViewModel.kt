@@ -6,10 +6,8 @@ import android.view.View
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.test.truefalse.R
 import com.test.truefalse.constants.ANSWERED_FACTS_KEY
 import com.test.truefalse.constants.HARD
@@ -26,7 +24,7 @@ import javax.inject.Inject
 class GameViewModel
 @Inject constructor(
     private val dataSource: FactsDataSource
-) : ViewModel() {
+) : BaseViewModel() {
 
     @Inject
     lateinit var numberOfFactsAnswered: ObservableInt
@@ -41,13 +39,13 @@ class GameViewModel
     @Inject
     lateinit var isPaused: ObservableBoolean
 
-    lateinit var listFacts: List<Fact>
+    private lateinit var listFacts: List<Fact>
 
     lateinit var mNavController: NavController
 
     // The first parameter is the number of milliseconds from which the count will be made
     // The second parameter is the number of milliseconds that are the callback interval (onTick () method)
-    val countDownTimer = object : CountDownTimer(HARD, 1_000) {
+    var countDownTimer = object : CountDownTimer(HARD, 1_000) {
         // Called when the timer reaches zero
         override fun onFinish() {
             val bundle = Bundle()
@@ -88,7 +86,7 @@ class GameViewModel
             putGameResult(view)
             val bundle = Bundle()
             bundle.putSerializable(LIST_ANSWERS_KEY, gameResult)
-            view.findNavController().navigate(R.id.resultFragment, bundle)
+            mNavController.navigate(R.id.resultFragment, bundle)
         }
         Log.d("MyLogs", "GameViewModel. onButtonTrueClick")
     }
@@ -111,17 +109,24 @@ class GameViewModel
         Log.d("MyLogs", "GameViewModel. getUnusedFacts")
         viewModelScope.launch(IO) {
             listFacts = dataSource.loadRange().shuffled()
-            Log.d("MyLogs", "GameViewModel. Вызов dataSource.loadRange(). Размер результата = ${listFacts.size}")
+            Log.d(
+                "MyLogs",
+                "GameViewModel. Вызов dataSource.loadRange(). Размер результата = ${listFacts.size}"
+            )
             currentFact.set(listFacts[0])
         }
     }
 
-    fun newGame() {
+    override fun newGame(navController: NavController) {
         Log.d("MyLogs", "GameViewModel. New Game")
         getUnusedFacts()
         countDownTimer.cancel()
         numberOfFactsAnswered.set(0)
         isPlaying.set(false)
+    }
+
+    override fun aboutApp(navController: NavController) {
+        navController.navigate(R.id.aboutAppFragment)
     }
 
     fun initNavController(navController: NavController) {

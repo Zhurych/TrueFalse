@@ -2,17 +2,16 @@ package com.test.truefalse.viewModel
 
 import android.util.Log
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.test.truefalse.R
 import com.test.truefalse.model.Answer
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 class ResultViewModel
 @Inject constructor(
 
-) : ViewModel() {
+) : BaseViewModel() {
 
     @Inject
     lateinit var correctAnswers: ObservableInt
@@ -34,9 +33,20 @@ class ResultViewModel
 
         val percent = (correctCount * 100.0 / (correctCount + wrongCount)).roundToInt()
         percentCorrectAnswers.set(percent)
-        Log.d("MyLogs", "ResultViewModel. КОЛИЧЕСТВО ПРОЦЕНТОВ ВЕРНЫХ ОТВЕТОВ = ${percentCorrectAnswers.get()}")
+        Log.d(
+            "MyLogs",
+            "ResultViewModel. КОЛИЧЕСТВО ПРОЦЕНТОВ ВЕРНЫХ ОТВЕТОВ = ${percentCorrectAnswers.get()}"
+        )
 
         correctAnswers.set(correctCount)
         wrongAnswers.set(wrongCount)
+    }
+
+    override fun newGame(navController: NavController) {
+        navController.navigate(R.id.gameFragment)
+    }
+
+    override fun aboutApp(navController: NavController) {
+        navController.navigate(R.id.aboutAppFragment)
     }
 }

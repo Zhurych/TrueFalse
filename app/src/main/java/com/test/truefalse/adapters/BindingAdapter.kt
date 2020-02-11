@@ -93,4 +93,12 @@ object BindingAdapter {
             else -> view.setImageResource(R.drawable.ic_stars_3_white)
         }
     }
+
+    @BindingAdapter("version")
+    @JvmStatic
+    fun setVersion(view: TextView, version: String) {
+        val context = App.applicationContext()
+
+        view.text = String.format(context.getString(R.string.version), version)
+    }
 }

@@ -6,24 +6,6 @@ import android.os.Message
 import android.os.SystemClock
 import android.util.Log
 
-/*
- * Copyright (C) 2008 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-
-
 /**
  * Schedule a countdown until a time in the future, with
  * regular notifications on intervals along the way.
@@ -49,6 +31,7 @@ import android.util.Log
  * [.onTick] takes an amount of time to execute that is significant
  * compared to the countdown interval.
  */
+
 abstract class CountDownTimer
 /**
  * @param millisInFuture The number of millis in the future from the call
@@ -57,15 +40,18 @@ abstract class CountDownTimer
  * @param countDownInterval The interval along the way to receive
  * [.onTick] callbacks.
  */(
-    /**
-     * Millis since epoch when alarm should stop.
-     */
-    private val mMillisInFuture: Long,
-    /**
-     * The interval in millis that the user receives callbacks
-     */
-    private val mCountdownInterval: Long
+    mMillisInFuture: Long,
+    mCountdownInterval: Long
 ) {
+    private val mMillisInFuture: Long
+    private val mCountdownInterval: Long
+
+    init {
+        Log.d("MyLogs", "СОЗДАНИЕ ТАЙМЕРА")
+        this.mMillisInFuture = mMillisInFuture
+        this.mCountdownInterval = mCountdownInterval
+    }
+
     private var mStopTimeInFuture: Long = 0
     private var mPauseTime: Long = 0
     private var mCancelled = false
@@ -131,14 +117,17 @@ abstract class CountDownTimer
     private val mHandler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             synchronized(this@CountDownTimer) {
+                Log.d("MyLogs", "Handler = $this")
                 if (!mPaused) {
                     val millisLeft =
                         mStopTimeInFuture - SystemClock.elapsedRealtime()
                     if (millisLeft <= 0) {
-                        Log.d("MyLogs", "handler в таймере. Вызывается при повторном запуске gameFragment или нажатии на меню.")
+                        Log.d("MyLogs", "МИЛИСЕКУНД <= 0")
                     } else if (millisLeft < mCountdownInterval) { // no tick, just delay until done
+                        Log.d("MyLogs", "ВРЕМЯ ЗАКОНЧИЛОСЬ")
                         onFinish()
                     } else {
+                        Log.d("MyLogs", "МИЛИСЕКУНД В ТАЙМЕРЕ ОСТАЛОСЬ = $millisLeft")
                         val lastTickStart = SystemClock.elapsedRealtime()
                         onTick(millisLeft)
                         // take into account user's onTick taking time to execute

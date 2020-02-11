@@ -9,9 +9,6 @@ import com.test.truefalse.database.Fact
 import com.test.truefalse.model.Answer
 import dagger.Module
 import dagger.Provides
-import java.util.*
-import javax.inject.Singleton
-import kotlin.collections.ArrayList
 
 @Module
 class GameVMDependencies {

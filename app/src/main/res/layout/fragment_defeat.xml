@@ -8,6 +8,10 @@
         <variable
             name="numberOfFactsAnswered"
             type="Integer" />
+
+        <variable
+            name="vm"
+            type="com.test.truefalse.viewModel.DefeatViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,15 +60,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/buttonDefeatFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_button"
-            android:text="@string/start_over"
+        <TextView
+            android:id="@+id/tvDefeatFragmentDescription"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:text="@string/description"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonDefeatFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidelineCenterVertical" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDefeatFragment" />
+
+        <Button
+            android:id="@+id/buttonDefeatFragment"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="96dp"
+            android:background="@drawable/background_button"
+            android:onClick="@{(view) -> vm.onButtonClick(view)}"
+            android:text="@string/start_over"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineCenterVertical"

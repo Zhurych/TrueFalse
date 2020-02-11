@@ -1,19 +1,20 @@
 package com.test.truefalse.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.test.truefalse.R
+import com.test.truefalse.viewModel.BaseViewModel
 import dagger.android.support.DaggerFragment
 import java.lang.reflect.ParameterizedType
 import javax.inject.Inject
 
-abstract class BaseFragment<VM : ViewModel, VB : ViewDataBinding> : DaggerFragment() {
+abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : DaggerFragment() {
 
     @Inject
     protected lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -59,7 +60,30 @@ abstract class BaseFragment<VM : ViewModel, VB : ViewDataBinding> : DaggerFragme
         return view
     }
 
-     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main_activity, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menuNewGame -> {
+                vm.newGame(findNavController())
+                return true
+            }
+            R.id.menuSetting -> {
+                vm.settings()
+                return true
+            }
+            R.id.menuAboutApp -> {
+                vm.aboutApp(findNavController())
+                return true
+            }
+            R.id.menuExit -> {
+                vm.exit(activity = activity as AppCompatActivity)
+                return true
+            }
+        }
+
+        return false
     }
 }

@@ -4,7 +4,6 @@
     <!--Game screen-->
     <string name="new_game">Новая игра</string>
     <string name="settings">Настройки</string>
-    <string name="about_app">О приложении</string>
     <string name="exit">Выход</string>
     <string name="fact_number">Факт #%d</string>
     <string name="second_left">Осталось %d секунд</string>
@@ -19,7 +18,13 @@
 
     <!--Defeat screen-->
     <string name="defeat">Поражение</string>
+    <string name="description">Время закончилось. Попробуйте ещё раз.</string>
     <string name="start_over">Начать заново</string>
+
+    <!--About App screen-->
+    <string name="about_app">О приложении</string>
+    <string name="version">Версия %s</string>
+    <string name="developer">© 2020 EdZ</string>
 
     <!--General-->
     <string name="true_string">Правда</string>
