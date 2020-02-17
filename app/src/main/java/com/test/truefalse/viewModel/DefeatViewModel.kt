@@ -13,15 +13,19 @@ class DefeatViewModel
 ) : BaseViewModel() {
 
     fun onButtonClick(view: View) {
-        view.findNavController().navigate(R.id.gameFragment)
+        view.findNavController().navigate(R.id.action_defeatFragment_to_gameFragment)
         Log.d("MyLogs", "DefeatViewModel. onButtonClick")
     }
 
     override fun newGame(navController: NavController) {
-        navController.navigate(R.id.gameFragment)
+        navController.navigate(R.id.action_defeatFragment_to_gameFragment)
+    }
+
+    override fun settings(navController: NavController) {
+        navController.navigate(R.id.action_defeatFragment_to_settingsFragment)
     }
 
     override fun aboutApp(navController: NavController) {
-        navController.navigate(R.id.aboutAppFragment)
+        navController.navigate(R.id.action_defeatFragment_to_aboutAppFragment)
     }
 }

@@ -6,8 +6,9 @@ import com.test.truefalse.database.FactDao
 
 class FactsDataSource(private val dao: FactDao) {
 
-    suspend fun loadRange(): List<Fact> {
-        var result = dao.getUnusedFacts(isUsed = false)
+    suspend fun loadRange(listThemes: List<Int>): List<Fact> {
+        var result: List<Fact>
+        result = dao.getUnusedFacts(isUsed = false, listThemes = listThemes)
         when {
             // If there are no unused facts
             result.isEmpty() -> {
@@ -16,12 +17,23 @@ class FactsDataSource(private val dao: FactDao) {
                 Log.d("MyLogs", "DataSource. Размер всех фактов = ${listFactsWithId.size}")
                 listFactsWithId = listFactsWithId.shuffled()
                 dao.shuffle(listFactsWithId)
-                result = dao.getUnusedFacts(isUsed = false)
+                result = dao.getUnusedFacts(isUsed = false, listThemes = listThemes)
             }
             result.size < 30 -> {
-                Log.d("MyLogs", "DataSource. Неиспользованных фактов меньше 30. Тянем использованные факты.")
-                val listUsedFacts = dao.getUsedFacts(isUsed = true, limit = 30 - result.size)
-                Log.d("MyLogs", "DataSource. Размер использованных фактов = ${listUsedFacts.size}")
+                Log.d(
+                    "MyLogs",
+                    "DataSource. Неиспользованных фактов меньше 30. Тянем использованные факты."
+                )
+                val listUsedFacts =
+                    dao.getUsedFacts(
+                        isUsed = true,
+                        limit = 30 - result.size,
+                        listThemes = listThemes
+                    )
+                Log.d(
+                    "MyLogs",
+                    "DataSource. Размер использованных фактов = ${listUsedFacts.size}"
+                )
                 result.addAll(listUsedFacts)
             }
             else -> {

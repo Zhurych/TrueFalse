@@ -1,9 +1,6 @@
 package com.test.truefalse.di
 
-import com.test.truefalse.view.fragments.AboutAppFragment
-import com.test.truefalse.view.fragments.DefeatFragment
-import com.test.truefalse.view.fragments.GameFragment
-import com.test.truefalse.view.fragments.ResultFragment
+import com.test.truefalse.view.fragments.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -21,4 +18,7 @@ abstract class FragmentsModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeAboutAppFragment(): AboutAppFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeSettingsFragment(): SettingsFragment
 }

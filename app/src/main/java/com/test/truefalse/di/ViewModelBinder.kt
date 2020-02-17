@@ -2,6 +2,7 @@ package com.test.truefalse.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.mindorks.placeholderview.annotations.View
 import com.test.truefalse.viewModel.*
 import dagger.Binds
 import dagger.Module
@@ -41,4 +42,9 @@ abstract class ViewModelBinder {
     @IntoMap
     @ViewModelKey(AboutAppViewModel::class)
     internal abstract fun aboutAppViewModel(viewModel: AboutAppViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SettingsViewModel::class)
+    internal abstract fun settingsViewModel(viewModel: SettingsViewModel): ViewModel
 }

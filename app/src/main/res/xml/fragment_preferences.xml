@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <MultiSelectListPreference
+        android:defaultValue="@array/entry_values_multi"
+        android:dialogTitle="@string/themes"
+        android:entries="@array/entries_multi"
+        android:entryValues="@array/entry_values_multi"
+        android:key="themes"
+        android:title="@string/themes"
+        app:iconSpaceReserved="false" />
+
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/entries_difficulty"
+        android:entryValues="@array/entry_values_difficulty"
+        android:key="difficulty"
+        android:title="@string/difficulty"
+        app:iconSpaceReserved="false"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>

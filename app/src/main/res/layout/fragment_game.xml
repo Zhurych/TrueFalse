@@ -13,40 +13,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clGameFragmentRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvGameFragmentFactNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-            app:factsAnswered="@{vm.numberOfFactsAnswered}"
-            app:layout_constraintBottom_toTopOf="@id/guidelineToolbarHeight"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="27/30" />
-
-        <ProgressBar
-            android:id="@+id/hpbGameFragment"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="48dp"
-            android:indeterminate="false"
-            android:max="30"
-            android:progress="@{vm.numberOfFactsAnswered}"
-            app:layout_constraintBottom_toBottomOf="@+id/tvGameFragmentFactNumber"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvGameFragmentFactNumber"
-            app:layout_constraintTop_toTopOf="@+id/tvGameFragmentFactNumber"
-            tools:progress="27" />
-
-        <TextView
-            android:id="@+id/tvGameFragmentTimer"
+            android:id="@+id/tvTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -54,67 +26,42 @@
             android:visibility="@{vm.isPlaying() ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineToolbarHeight"
+            app:layout_constraintTop_toTopOf="parent"
             app:timer="@{vm.secondsLeft}"
             tools:text="Осталось 7 секунд" />
-
-        <TextView
-            android:id="@+id/tvGameFragmentFactTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/textColor"
-            android:textSize="26sp"
-            app:factNumber="@{vm.numberOfFactsAnswered}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGameFragmentTimer"
-            tools:text="Факт #27" />
-
-        <TextView
-            android:id="@+id/tvGameFragmentFact"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center_horizontal"
-            android:text="@{vm.currentFact.name}"
-            android:textColor="@color/textColor"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonGameFragmentTrue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGameFragmentFactTitle"
-            tools:text="Древние римляне чистили зубы высушенными и измельченными мозгами мышей вместо зубной пасты." />
 
         <Button
             android:id="@+id/buttonGameFragmentFalse"
             android:layout_width="130dp"
             android:layout_height="50dp"
-            android:layout_marginBottom="96dp"
             android:background="@drawable/background_button"
-            android:onClick="@{(view) -> vm.onButtonTrueClick(view)}"
             android:text="@string/false_string"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonGameFragmentTrue"
+            app:layout_constraintEnd_toStartOf="@id/buttonGameFragmentTrue"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTop80Percent" />
 
         <Button
             android:id="@+id/buttonGameFragmentTrue"
             android:layout_width="130dp"
             android:layout_height="50dp"
             android:background="@drawable/background_button"
-            android:onClick="@{(view) -> vm.onButtonTrueClick(view)}"
             android:text="@string/true_string"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/buttonGameFragmentFalse"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/buttonGameFragmentFalse" />
+            app:layout_constraintStart_toEndOf="@id/buttonGameFragmentFalse"
+            app:layout_constraintTop_toTopOf="@+id/guidelineTop80Percent" />
+
+        <com.mindorks.placeholderview.SwipePlaceHolderView
+            android:id="@+id/swipeView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvPause"
@@ -130,10 +77,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineToolbarHeight"
+            android:id="@+id/guidelineTop80Percent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="@dimen/toolbar_height" />
+            app:layout_constraintGuide_percent="0.8"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineBottom20Percent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

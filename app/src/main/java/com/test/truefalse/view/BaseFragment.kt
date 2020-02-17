@@ -3,7 +3,6 @@ package com.test.truefalse.view
 import android.os.Bundle
 import android.view.*
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
@@ -45,7 +44,11 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : DaggerFr
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(layout(), container, false)
+        val view = view ?: inflater.inflate(
+            layout(),
+            container,
+            false
+        )
 
         vb = DataBindingUtil.bind(view)!!
 
@@ -71,7 +74,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : DaggerFr
                 return true
             }
             R.id.menuSetting -> {
-                vm.settings()
+                vm.settings(findNavController())
                 return true
             }
             R.id.menuAboutApp -> {
@@ -79,7 +82,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : DaggerFr
                 return true
             }
             R.id.menuExit -> {
-                vm.exit(activity = activity as AppCompatActivity)
+                activity?.finish()
                 return true
             }
         }

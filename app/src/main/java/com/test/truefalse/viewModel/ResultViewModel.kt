@@ -43,10 +43,14 @@ class ResultViewModel
     }
 
     override fun newGame(navController: NavController) {
-        navController.navigate(R.id.gameFragment)
+        navController.navigate(R.id.action_resultFragment_to_gameFragment)
+    }
+
+    override fun settings(navController: NavController) {
+        navController.navigate(R.id.action_resultFragment_to_settingsFragment)
     }
 
     override fun aboutApp(navController: NavController) {
-        navController.navigate(R.id.aboutAppFragment)
+        navController.navigate(R.id.action_resultFragment_to_aboutAppFragment)
     }
 }

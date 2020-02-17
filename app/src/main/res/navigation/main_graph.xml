@@ -10,14 +10,26 @@
         android:label="GameFragment">
 
         <action
-            android:id="@+id/action_gameFragment_to_resultFragment"
-            app:destination="@id/resultFragment" />
-        <action
             android:id="@+id/action_gameFragment_to_defeatFragment"
-            app:destination="@+id/defeatFragment" />
+            app:destination="@+id/defeatFragment"
+            app:popUpTo="@+id/gameFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_gameFragment_to_aboutAppFragment"
             app:destination="@id/aboutAppFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/gameFragment" />
+        <action
+            android:id="@+id/action_gameFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:popUpTo="@+id/gameFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="numberOfFactsAnswered"
+            app:argType="androidx.databinding.ObservableInt" />
 
     </fragment>
     <fragment
@@ -26,7 +38,15 @@
         android:label="ResultFragment" >
         <action
             android:id="@+id/action_resultFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:popUpTo="@+id/main_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_resultFragment_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+        <action
+            android:id="@+id/action_resultFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/defeatFragment"
@@ -34,14 +54,22 @@
         android:label="DefeatFragment" >
         <action
             android:id="@+id/action_defeatFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
+            app:destination="@id/gameFragment"
+            app:popUpTo="@+id/main_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_defeatFragment_to_aboutAppFragment"
+            app:destination="@id/aboutAppFragment" />
+        <action
+            android:id="@+id/action_defeatFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutAppFragment"
         android:name="com.test.truefalse.view.fragments.AboutAppFragment"
-        android:label="AboutAppFragment" >
-        <action
-            android:id="@+id/action_aboutAppFragment_to_gameFragment"
-            app:destination="@id/gameFragment" />
-    </fragment>
+        android:label="AboutAppFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.test.truefalse.view.fragments.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

@@ -40,18 +40,9 @@ abstract class CountDownTimer
  * @param countDownInterval The interval along the way to receive
  * [.onTick] callbacks.
  */(
-    mMillisInFuture: Long,
-    mCountdownInterval: Long
-) {
-    private val mMillisInFuture: Long
+    private val mMillisInFuture: Long,
     private val mCountdownInterval: Long
-
-    init {
-        Log.d("MyLogs", "СОЗДАНИЕ ТАЙМЕРА")
-        this.mMillisInFuture = mMillisInFuture
-        this.mCountdownInterval = mCountdownInterval
-    }
-
+) {
     private var mStopTimeInFuture: Long = 0
     private var mPauseTime: Long = 0
     private var mCancelled = false
@@ -117,7 +108,6 @@ abstract class CountDownTimer
     private val mHandler: Handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             synchronized(this@CountDownTimer) {
-                Log.d("MyLogs", "Handler = $this")
                 if (!mPaused) {
                     val millisLeft =
                         mStopTimeInFuture - SystemClock.elapsedRealtime()

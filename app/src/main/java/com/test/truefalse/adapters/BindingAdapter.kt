@@ -64,22 +64,6 @@ object BindingAdapter {
         }
     }
 
-    @BindingAdapter("correct")
-    @JvmStatic
-    fun setCorrect(view: TextView, correctCount: Int) {
-        val context = App.applicationContext()
-
-        view.text = String.format(context.getString(R.string.correct_answer), correctCount)
-    }
-
-    @BindingAdapter("wrong")
-    @JvmStatic
-    fun setWrong(view: TextView, wrongCount: Int) {
-        val context = App.applicationContext()
-
-        view.text = String.format(context.getString(R.string.wrong_answer), wrongCount)
-    }
-
     @BindingAdapter("stars")
     @JvmStatic
     fun setStars(view: ImageView, percent: Int) {

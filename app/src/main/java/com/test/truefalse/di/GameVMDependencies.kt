@@ -30,4 +30,10 @@ class GameVMDependencies {
 
     @Provides
     internal fun provideListAnswers() = ArrayList<Answer>()
+
+    @Provides
+    internal fun provideMutableLiveDataFacts() = MutableLiveData<List<Fact>>()
+
+    @Provides
+    internal fun provideMutableLiveDataInt() = MutableLiveData<Int>(0)
 }

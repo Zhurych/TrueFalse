@@ -10,3 +10,9 @@ const val THEME_FACTS_ABOUT_THE_WORLD = "Факты о Мире"
 
 const val ANSWERED_FACTS_KEY = "numberOfFactsAnswered"
 const val LIST_ANSWERS_KEY = "listAnswersKey"
+
+const val GAME_FRAGMENT_LABEL = "GameFragment"
+const val RESULT_FRAGMENT_LABEL = "ResultFragment"
+const val DEFEAT_FRAGMENT_LABEL = "DefeatFragment"
+const val SETTINGS_FRAGMENT_LABEL = "SettingsFragment"
+const val ABOUT_APP_FRAGMENT_LABEL = "AboutAppFragment"

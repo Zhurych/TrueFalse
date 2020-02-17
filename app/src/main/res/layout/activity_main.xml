@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.test.truefalse.viewModel.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +29,39 @@
             app:titleTextAppearance="@style/Toolbar"
             app:titleTextColor="@color/textColor" />
 
+        <TextView
+            android:id="@+id/tvGameFragmentFactNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/textColor"
+            android:textSize="16sp"
+            android:visibility="@{vm.isNeedToHideToolbar ? View.INVISIBLE : View.VISIBLE}"
+            app:factsAnswered="@{vm.mNumberOfFactsAnswered}"
+            app:layout_constraintBottom_toTopOf="@id/guidelineToolbarHeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="27/30" />
+
+        <ProgressBar
+            android:id="@+id/hpbGameFragment"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="48dp"
+            android:indeterminate="false"
+            android:max="30"
+            android:progress="@{vm.mNumberOfFactsAnswered}"
+            android:visibility="@{vm.isNeedToHideToolbar ? View.INVISIBLE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/tvGameFragmentFactNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvGameFragmentFactNumber"
+            app:layout_constraintTop_toTopOf="@+id/tvGameFragmentFactNumber"
+            tools:progress="27" />
+
         <View
+            android:id="@+id/shadow"
             android:layout_width="0dp"
             android:layout_height="2dp"
             android:background="@drawable/shadow_toolbar"
@@ -37,10 +74,11 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shadow"
             app:navGraph="@navigation/main_graph" />
 
         <androidx.constraintlayout.widget.Guideline

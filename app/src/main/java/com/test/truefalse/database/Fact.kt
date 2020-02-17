@@ -9,7 +9,7 @@ data class Fact internal constructor(
     val id: Int,
     val name: String,
     val isTrue: Boolean,
-    val theme: String,
+    val theme: Int,
     var order: Int?,
     val isUsed: Boolean
 )

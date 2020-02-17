@@ -1,18 +1,9 @@
 package com.test.truefalse.viewModel
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.test.truefalse.customClasses.GameMenu
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), GameMenu {
 
-    abstract fun newGame(navController: NavController)
-
-    fun settings() {}
-
-    abstract fun aboutApp(navController: NavController)
-
-    fun exit(activity: AppCompatActivity) {
-        activity.finish()
-    }
 }

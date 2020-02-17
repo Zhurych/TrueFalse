@@ -3,23 +3,20 @@ ext {
     def ktx = "1.1.0"
     def material = "1.2.0-alpha03"
     def appcompat = "1.1.0"
+    def preferenceKtx = "1.1.0"
+    def preferenceLegacy = "1.0.0"
     def constraintlayout = "1.1.3"
     def dagger2 = "2.21"
-    def okhttp = "3.12.1"
-    def retrofit = "2.6.2"
     def coroutines = "1.3.0"
     def room = "2.2.2"
-    def paging = "2.1.0"
     def nav = "2.2.0"
-    def viewpager2 = "1.0.0"
-    def viewpagerktx = "1.2.0-rc04"
-    def circleimage = "3.0.1"
-    def picasso = "2.71828"
     def lifecycle = '2.2.0-rc03'
     def databinding = '3.1.4'
     def junit_version = '4.12'
     def systembartint = '1.0.3'
     def gson_version = '2.8.6'
+    def swipePlaceHolder = '0.7.1'
+    def cardView = '1.0.0'
 
     kotlinDependencies = [
             "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin}",
@@ -29,7 +26,8 @@ ext {
     coreAndroidDependencies = [
             "com.google.android.material:material:${material}",
             "androidx.appcompat:appcompat:${appcompat}",
-            "androidx.constraintlayout:constraintlayout:${constraintlayout}"
+            "androidx.constraintlayout:constraintlayout:${constraintlayout}",
+            "androidx.cardview:cardview:${cardView}"
     ]
 
     diDependencies = [
@@ -41,12 +39,6 @@ ext {
     diPlugins = [
             "com.google.dagger:dagger-android-processor:${dagger2}",
             "com.google.dagger:dagger-compiler:${dagger2}"
-    ]
-
-    networkDependencies = [
-            "com.squareup.retrofit2:retrofit:${retrofit}",
-            "com.squareup.retrofit2:converter-gson:${retrofit}",
-            "com.squareup.okhttp3:logging-interceptor:${okhttp}"
     ]
 
     coroutinesDependencies = [
@@ -63,26 +55,9 @@ ext {
             "androidx.room:room-compiler:${room}"
     ]
 
-    pagingDependencies = [
-            "androidx.paging:paging-runtime-ktx:${paging}"
-    ]
-
     navigationDependencies = [
             "androidx.navigation:navigation-fragment-ktx:${nav}",
             "androidx.navigation:navigation-ui-ktx:${nav}"
-    ]
-
-    viewPagerDependencies = [
-            "androidx.viewpager2:viewpager2:${viewpager2}",
-            "androidx.fragment:fragment-ktx:${viewpagerktx}"
-    ]
-
-    circleImageDependencies = [
-            "de.hdodenhof:circleimageview:${circleimage}"
-    ]
-
-    picassoDependencies = [
-            "com.squareup.picasso:picasso:${picasso}"
     ]
 
     lifecycleDependencies = [
@@ -110,5 +85,14 @@ ext {
 
     gsonDependencies = [
             "com.google.code.gson:gson:${gson_version}"
+    ]
+
+    swipePlaceHolderView = [
+            "com.mindorks:placeholderview:${swipePlaceHolder}"
+    ]
+
+    preferencesDependencies = [
+            "androidx.preference:preference-ktx:${preferenceKtx}",
+            "androidx.legacy:legacy-preference-v14:${preferenceLegacy}"
     ]
 }
