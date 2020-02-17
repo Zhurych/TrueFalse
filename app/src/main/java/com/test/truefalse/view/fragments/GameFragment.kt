@@ -145,7 +145,7 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
     override fun onSaveInstanceState(outState: Bundle) {
         Log.d("MyLogs", "GameFragment. onSaveInstanceState")
         super.onSaveInstanceState(outState)
-        outState.putBoolean("isPause", true)
+
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -170,8 +170,8 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
     }
 
     override fun onDestroy() {
+        Log.d("MyLogs", "GameFragment. onDestroy")
         super.onDestroy()
-        vm.countDownTimer.cancel()
     }
 
     override fun onClick(v: View?) {

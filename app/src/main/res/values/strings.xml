@@ -59,6 +59,14 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string-array name="entries_theme">
+        <item>Светлая</item>
+        <item>Тёмная</item>
+    </string-array>
+    <string-array name="entry_values_theme">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
     <!--General-->
     <string name="true_string">Правда</string>

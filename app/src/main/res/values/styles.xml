@@ -12,6 +12,15 @@
     <!--ToolBar theme-->
     <style name="Toolbar" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+    
+    <style name="CustomTextAppearance">
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="CustomButton">
+        <item name="android:background">@drawable/background_button</item>
     </style>
 
 </resources>

@@ -13,7 +13,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/white"
+        android:background="@color/backgroundColor"
         android:orientation="vertical"
         app:cardCornerRadius="7dp"
         app:cardElevation="4dp">
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:textColor="@color/textColor"
+                style="@style/CustomTextAppearance"
                 android:textSize="26sp"
                 tools:text="Факт #27" />
 
@@ -42,7 +42,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_horizontal"
-                android:textColor="@color/textColor"
+                style="@style/CustomTextAppearance"
                 android:textSize="24sp"
                 tools:text="Древние римляне чистили зубы высушенными и измельченными мозгами мышей вместо зубной пасты." />
         </LinearLayout>

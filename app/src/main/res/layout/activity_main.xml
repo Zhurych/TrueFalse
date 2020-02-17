@@ -26,21 +26,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleTextAppearance="@style/Toolbar"
-            app:titleTextColor="@color/textColor" />
+            app:titleTextAppearance="@style/Toolbar" />
 
         <TextView
             android:id="@+id/tvGameFragmentFactNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:visibility="@{vm.isNeedToHideToolbar ? View.INVISIBLE : View.VISIBLE}"
             app:factsAnswered="@{vm.mNumberOfFactsAnswered}"
             app:layout_constraintBottom_toTopOf="@id/guidelineToolbarHeight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            style="@style/CustomTextAppearance"
             tools:text="27/30" />
 
         <ProgressBar

@@ -22,4 +22,13 @@
         app:iconSpaceReserved="false"
         app:useSimpleSummaryProvider="true" />
 
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/entries_theme"
+        android:entryValues="@array/entry_values_theme"
+        android:key="theme"
+        android:title="@string/theme"
+        app:iconSpaceReserved="false"
+        app:useSimpleSummaryProvider="true" />
+
 </PreferenceScreen>

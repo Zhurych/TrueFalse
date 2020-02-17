@@ -1,6 +1,7 @@
 package com.test.truefalse.view.activities
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -24,11 +25,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override fun afterCreate(savedInstanceState: Bundle?) {
         title = ""
         setSupportActionBar(vb.tbMainActivity)
-        // This will read your preference.xml file and set the default values defined there.
-        // Setting the readAgain argument to false means this will only set the default values if this method
-        // has never been called in the past so you don't need to worry about overriding the user's settings
-        // each time your Activity is created.
-        PreferenceManager.setDefaultValues(this, R.xml.fragment_preferences, false)
 
         vb.vm = vm
 
@@ -39,16 +35,33 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
         mNavController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.label) {
-                GAME_FRAGMENT_LABEL -> vm.isNeedToHideToolbar.set(false)
-                RESULT_FRAGMENT_LABEL -> vm.isNeedToHideToolbar.set(false)
-                DEFEAT_FRAGMENT_LABEL -> vm.isNeedToHideToolbar.set(false)
-                SETTINGS_FRAGMENT_LABEL -> vm.isNeedToHideToolbar.set(true)
-                ABOUT_APP_FRAGMENT_LABEL -> vm.isNeedToHideToolbar.set(true)
+                GAME_FRAGMENT_LABEL -> {
+                    vm.isNeedToHideToolbar.set(false)
+                }
+                RESULT_FRAGMENT_LABEL -> {
+                    vm.isNeedToHideToolbar.set(false)
+                }
+                DEFEAT_FRAGMENT_LABEL -> {
+                    vm.isNeedToHideToolbar.set(false)
+                }
+                SETTINGS_FRAGMENT_LABEL -> {
+                    vm.isNeedToHideToolbar.set(true)
+                    title = getString(R.string.settings)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
+                ABOUT_APP_FRAGMENT_LABEL -> {
+                    vm.isNeedToHideToolbar.set(true)
+                }
             }
         }
 
         Log.d("MyLogs", "MainActivity mNumberOfFactsAnswered = ${vm.mNumberOfFactsAnswered}")
         Log.d("MyLogs", "MainActivity. game = $mNavHostFragment")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        Log.d("MyLogs", "MainActivity. onSaveInstanceState")
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
     override fun onSupportNavigateUp(): Boolean {

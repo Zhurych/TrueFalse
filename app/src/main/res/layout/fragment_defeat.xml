@@ -40,19 +40,19 @@
             android:layout_marginBottom="16dp"
             android:gravity="center_horizontal"
             android:text="@string/description"
-            android:textColor="@color/textColor"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/buttonDefeatFragment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDefeatFragment" />
+            app:layout_constraintTop_toBottomOf="@+id/tvDefeatFragment"
+            style="@style/CustomTextAppearance" />
 
         <Button
             android:id="@+id/buttonDefeatFragment"
+            style="@style/CustomButton"
             android:layout_width="130dp"
             android:layout_height="50dp"
             android:layout_marginBottom="96dp"
-            android:background="@drawable/background_button"
             android:onClick="@{(view) -> vm.onButtonClick(view)}"
             android:text="@string/start_over"
             app:layout_constraintBottom_toBottomOf="parent"
