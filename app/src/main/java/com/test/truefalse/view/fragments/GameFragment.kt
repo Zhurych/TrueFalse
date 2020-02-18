@@ -82,6 +82,28 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
                         .setSwipeInMsgGravity(Gravity.START)
                 )
 
+            vm.liveFacts.observe(this, Observer {
+                Log.d("MyLogs", "GameFragment. Подписчик liveFacts it = $it")
+                if (!it.isNullOrEmpty() && !vm.isPaused.get()) {
+                    Log.d(
+                        "MyLogs",
+                        "GameFragment. Подписчик liveFacts. mSwipeView = $vb.swipeView"
+                    )
+                    vb.swipeView.removeAllViews()
+                    vm.currentFact.set(vm.liveFacts.value?.get(0))
+                    for ((index, fact) in it.withIndex()) {
+                        vb.swipeView.addView(
+                            TinderCard(
+                                mContext = context!!,
+                                mFactNumber = index + 1,
+                                mFactName = fact.name,
+                                container = this
+                            )
+                        )
+                    }
+                }
+            })
+
             if (vm.isPaused.get()) {
                 //vm.isPaused.set(false)
                 //vm.countDownTimer.resume()
@@ -111,28 +133,6 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
                     "MyLogs",
                     "GameFragment. guidelineBottom20Percent = ${vb.guidelineBottom20Percent.top}"
                 )
-
-                vm.liveFacts.observe(this, Observer {
-                    Log.d("MyLogs", "GameFragment. Подписчик liveFacts it = $it")
-                    if (!it.isNullOrEmpty()) {
-                        Log.d(
-                            "MyLogs",
-                            "GameFragment. Подписчик liveFacts. mSwipeView = $vb.swipeView"
-                        )
-                        vb.swipeView.removeAllViews()
-                        vm.currentFact.set(vm.liveFacts.value?.get(0))
-                        for ((index, fact) in it.withIndex()) {
-                            vb.swipeView.addView(
-                                TinderCard(
-                                    mContext = context!!,
-                                    mFactNumber = index + 1,
-                                    mFactName = fact.name,
-                                    container = this
-                                )
-                            )
-                        }
-                    }
-                })
             }
         }
     }
