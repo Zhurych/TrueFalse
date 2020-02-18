@@ -42,8 +42,6 @@ class GameViewModel
 
     lateinit var mNumberOfFactsAnswered: ObservableInt
 
-    lateinit var mSwipeView: SwipePlaceHolderView
-
     private lateinit var mNavController: NavController
     private var mListOfTopics: List<Int>
     private var mDifficulty: Int = 1

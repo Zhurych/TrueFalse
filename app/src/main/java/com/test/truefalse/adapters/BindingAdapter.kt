@@ -2,6 +2,8 @@ package com.test.truefalse.adapters
 
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.test.truefalse.App
@@ -17,14 +19,6 @@ object BindingAdapter {
 
         view.text =
             String.format(context.getString(R.string.number_of_facts_answered), factsAnswered)
-    }
-
-    @BindingAdapter("factNumber")
-    @JvmStatic
-    fun setFactNumber(view: TextView, factsAnswered: Int) {
-        val context = App.applicationContext()
-
-        view.text = String.format(context.getString(R.string.fact_number), factsAnswered + 1)
     }
 
     @BindingAdapter("timer")
@@ -67,14 +61,28 @@ object BindingAdapter {
     @BindingAdapter("stars")
     @JvmStatic
     fun setStars(view: ImageView, percent: Int) {
-        when {
-            percent < 7 -> view.setImageResource(R.drawable.ic_stars_0_white)
-            percent < 30 -> view.setImageResource(R.drawable.ic_stars_0_5_white)
-            percent < 47 -> view.setImageResource(R.drawable.ic_stars_1_white)
-            percent < 63 -> view.setImageResource(R.drawable.ic_stars_1_5_white)
-            percent < 80 -> view.setImageResource(R.drawable.ic_stars_2_white)
-            percent < 100 -> view.setImageResource(R.drawable.ic_stars_2_5_white)
-            else -> view.setImageResource(R.drawable.ic_stars_3_white)
+        val nightMode = AppCompatDelegate.getDefaultNightMode()
+
+        if (nightMode == MODE_NIGHT_NO) {
+            when {
+                percent < 7 -> view.setImageResource(R.drawable.ic_stars_0)
+                percent < 30 -> view.setImageResource(R.drawable.ic_stars_0_5)
+                percent < 47 -> view.setImageResource(R.drawable.ic_stars_1)
+                percent < 63 -> view.setImageResource(R.drawable.ic_stars_1_5)
+                percent < 80 -> view.setImageResource(R.drawable.ic_stars_2)
+                percent < 100 -> view.setImageResource(R.drawable.ic_stars_2_5)
+                else -> view.setImageResource(R.drawable.ic_stars_3)
+            }
+        } else {
+            when {
+                percent < 7 -> view.setImageResource(R.drawable.ic_stars_0_night)
+                percent < 30 -> view.setImageResource(R.drawable.ic_stars_0_5_night)
+                percent < 47 -> view.setImageResource(R.drawable.ic_stars_1_night)
+                percent < 63 -> view.setImageResource(R.drawable.ic_stars_1_5_night)
+                percent < 80 -> view.setImageResource(R.drawable.ic_stars_2_night)
+                percent < 100 -> view.setImageResource(R.drawable.ic_stars_2_5_night)
+                else -> view.setImageResource(R.drawable.ic_stars_3_night)
+            }
         }
     }
 

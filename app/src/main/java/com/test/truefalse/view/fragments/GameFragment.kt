@@ -23,20 +23,15 @@ import com.test.truefalse.viewModel.GameViewModel
 
 class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.OnClickListener {
 
-    private val mSwipeView: SwipePlaceHolderView by lazy {
-        if (vm.isPaused.get()) {
-            vm.mSwipeView
-        } else {
-            vm.mSwipeView = vb.swipeView as SwipePlaceHolderView
-            vb.swipeView as SwipePlaceHolderView
-        }
-    }
-
     private val mMenuVisibilityListener = object : ActionBar.OnMenuVisibilityListener {
         override fun onMenuVisibilityChanged(isVisible: Boolean) {
             if (isVisible) { // menu expanded
-                if (vm.isPlaying.get()) vm.isPaused.set(true)
-                vm.countDownTimer.pause()
+                if (!vm.isPaused.get()) {
+                    vm.countDownTimer.pause()
+                }
+                if (vm.isPlaying.get()) {
+                    vm.isPaused.set(true)
+                }
                 Log.d("MyLogs", "GameFragment. Меню открыто")
             } else { // menu collapsed
                 if (vm.isPaused.get()) {
@@ -61,11 +56,6 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
 
         vm.mNumberOfFactsAnswered = (activity as MainActivity).getNumberOfFactsAnswered()
 
-        if (savedInstanceState == null) {
-            Log.d("MyLogs", "GameFragment. savedInstanceState = $savedInstanceState")
-            vm.getUnusedFacts()
-        }
-
         vb.buttonGameFragmentTrue.setOnClickListener(this)
         vb.buttonGameFragmentFalse.setOnClickListener(this)
 
@@ -74,13 +64,45 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
         actionBar.addOnMenuVisibilityListener(mMenuVisibilityListener)
 
         vb.clGameFragmentRoot.post {
+            val bottomMargin: Int = vb.guidelineBottom20Percent.bottom
+            val windowSize: Point = getDisplaySize(activity!!.windowManager)!!
+
+            vb.swipeView.getBuilder<SwipePlaceHolderView, SwipeViewBuilder<SwipePlaceHolderView>>()
+                .setDisplayViewCount(2)
+                .setSwipeDecor(
+                    SwipeDecor()
+                        .setViewWidth(windowSize.x)
+                        .setViewHeight(windowSize.y - bottomMargin)
+                        .setViewGravity(Gravity.TOP)
+                        .setMarginTop(0)
+                        .setRelativeScale(0f)
+                        .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
+                        .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view)
+                        .setSwipeOutMsgGravity(Gravity.END)
+                        .setSwipeInMsgGravity(Gravity.START)
+                )
+
             if (vm.isPaused.get()) {
-                vm.isPaused.set(false)
-                vm.countDownTimer.resume()
-                Log.d("MyLogs", "GameFragment. mSwipeView = $mSwipeView")
+                //vm.isPaused.set(false)
+                //vm.countDownTimer.resume()
+
+                vm.currentFact.set(vm.liveFacts.value?.get(vm.mNumberOfFactsAnswered.get() + 1))
+                val numberOfFact = vm.mNumberOfFactsAnswered.get() + 1
+                val subList = vm.liveFacts.value?.subList(vm.mNumberOfFactsAnswered.get(), 30)
+                for ((index, fact) in subList!!.withIndex()) {
+                    vb.swipeView.addView(
+                        TinderCard(
+                            mContext = context!!,
+                            mFactNumber = index + numberOfFact,
+                            mFactName = fact.name,
+                            container = this
+                        )
+                    )
+                }
+                Log.d("MyLogs", "GameFragment. игра на паузе")
             } else {
+                vm.getUnusedFacts()
                 vm.mNumberOfFactsAnswered.set(0)
-                val bottomMargin: Int = vb.guidelineBottom20Percent.bottom
                 Log.d(
                     "MyLogs",
                     "GameFragment. guidelineBottom20Percent = ${vb.guidelineBottom20Percent.bottom}"
@@ -89,45 +111,18 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
                     "MyLogs",
                     "GameFragment. guidelineBottom20Percent = ${vb.guidelineBottom20Percent.top}"
                 )
-                Log.d(
-                    "MyLogs",
-                    "GameFragment. guidelineBottom20Percent = ${vb.guidelineBottom20Percent.left}"
-                )
-                Log.d(
-                    "MyLogs",
-                    "GameFragment. guidelineBottom20Percent = ${vb.guidelineBottom20Percent.right}"
-                )
-                val windowSize: Point = getDisplaySize(activity!!.windowManager)!!
-
-                val builder =
-                    mSwipeView.getBuilder<SwipePlaceHolderView, SwipeViewBuilder<SwipePlaceHolderView>>()
-                        .setDisplayViewCount(2)
-                        .setSwipeDecor(
-                            SwipeDecor()
-                                .setViewWidth(windowSize.x)
-                                .setViewHeight(windowSize.y - bottomMargin)
-                                .setViewGravity(Gravity.TOP)
-                                .setMarginTop(0)
-                                .setRelativeScale(0f)
-                                .setSwipeInMsgLayoutId(R.layout.tinder_swipe_in_msg_view)
-                                .setSwipeOutMsgLayoutId(R.layout.tinder_swipe_out_msg_view)
-                                .setSwipeOutMsgGravity(Gravity.END)
-                                .setSwipeInMsgGravity(Gravity.START)
-                        )
-
-                Log.d("MyLogs", "GameFragment. builder = $builder")
 
                 vm.liveFacts.observe(this, Observer {
                     Log.d("MyLogs", "GameFragment. Подписчик liveFacts it = $it")
                     if (!it.isNullOrEmpty()) {
                         Log.d(
                             "MyLogs",
-                            "GameFragment. Подписчик liveFacts. mSwipeView = $mSwipeView"
+                            "GameFragment. Подписчик liveFacts. mSwipeView = $vb.swipeView"
                         )
-                        mSwipeView.removeAllViews()
+                        vb.swipeView.removeAllViews()
                         vm.currentFact.set(vm.liveFacts.value?.get(0))
                         for ((index, fact) in it.withIndex()) {
-                            mSwipeView.addView(
+                            vb.swipeView.addView(
                                 TinderCard(
                                     mContext = context!!,
                                     mFactNumber = index + 1,
@@ -176,8 +171,15 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.buttonGameFragmentTrue -> mSwipeView.doSwipe(true)
-            else -> mSwipeView.doSwipe(false)
+            R.id.buttonGameFragmentTrue -> vb.swipeView.doSwipe(true)
+            else -> vb.swipeView.doSwipe(false)
+        }
+    }
+
+    fun resumeGame() {
+        if (vm.isPaused.get()) {
+            vm.isPaused.set(false)
+            vm.countDownTimer.resume()
         }
     }
 }

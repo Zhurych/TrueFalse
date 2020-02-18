@@ -32,9 +32,9 @@
 
         <Button
             android:id="@+id/buttonGameFragmentFalse"
+            style="@style/CustomButton"
             android:layout_width="130dp"
             android:layout_height="50dp"
-            style="@style/CustomButton"
             android:text="@string/false_string"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@id/buttonGameFragmentTrue"
@@ -44,9 +44,9 @@
 
         <Button
             android:id="@+id/buttonGameFragmentTrue"
+            style="@style/CustomButton"
             android:layout_width="130dp"
             android:layout_height="50dp"
-            style="@style/CustomButton"
             android:text="@string/true_string"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,13 +81,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.8"/>
+            app:layout_constraintGuide_percent="0.8" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineBottom20Percent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3"/>
+            app:layout_constraintGuide_percent="0.3" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

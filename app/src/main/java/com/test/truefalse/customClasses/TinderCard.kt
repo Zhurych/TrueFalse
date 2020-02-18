@@ -34,26 +34,29 @@ class TinderCard(
     private fun onSwipedOut() {
         Log.d("MyLogs", "onSwipedOut")
         container.onSwipe(false)
+        container.resumeGame()
     }
 
     @SwipeCancelState
     private fun onSwipeCancelState() {
-        Log.d("EVENT", "onSwipeCancelState")
+        Log.d("MyLogs", "onSwipeCancelState")
+        container.resumeGame()
     }
 
     @SwipeIn
     private fun onSwipeIn() {
         Log.d("MyLogs", "onSwipedIn")
         container.onSwipe(true)
+        container.resumeGame()
     }
 
     @SwipeInState
     private fun onSwipeInState() {
-        Log.d("EVENT", "onSwipeInState")
+        Log.d("MyLogs", "onSwipeInState")
     }
 
     @SwipeOutState
     private fun onSwipeOutState() {
-        Log.d("EVENT", "onSwipeOutState")
+        Log.d("MyLogs", "onSwipeOutState")
     }
 }

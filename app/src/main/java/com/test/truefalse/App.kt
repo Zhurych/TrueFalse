@@ -21,20 +21,18 @@ class App : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
 
-    init {
-        instance = this
-    }
-
     companion object {
-        private var instance: App? = null
+        lateinit var instance: App
+            private set
 
         fun applicationContext(): Context {
-            return instance!!.applicationContext
+            return instance.applicationContext
         }
     }
 
     override fun onCreate() {
         super.onCreate()
+        instance = this
         DaggerAppComponent.builder()
             .applicationBind(this)
             .build()

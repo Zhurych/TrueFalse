@@ -30,15 +30,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
             when (newValue) {
                 "1" -> {
                     Log.d("MyLogs", "Выбрана светлая тема")
-                    //(activity as MainActivity).delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    Log.d("MyLogs", "Тема стала светлой")
                 }
                 "2" -> {
                     Log.d("MyLogs", "Выбрана тёмная тема")
-                    //(activity as MainActivity).delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    Log.d("MyLogs", "Тема стала тёмной")
                 }
             }
             true
