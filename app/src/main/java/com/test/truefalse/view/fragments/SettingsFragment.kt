@@ -17,8 +17,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         activity?.title = getString(R.string.settings)
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        Log.d("MyLogs", "SettingsFragment. onCreatePreferences. supportActionBar = ${(activity as MainActivity).supportActionBar}")
-        Log.d("MyLogs", "SettingsFragment. onCreatePreferences. Установка стрелки назад")
 
         val listOfThemes = findPreference<ListPreference>("theme")
 

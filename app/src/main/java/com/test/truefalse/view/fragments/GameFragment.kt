@@ -23,6 +23,8 @@ import com.test.truefalse.viewModel.GameViewModel
 
 class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.OnClickListener {
 
+    private var isBackToApp = false
+
     private val mMenuVisibilityListener = object : ActionBar.OnMenuVisibilityListener {
         override fun onMenuVisibilityChanged(isVisible: Boolean) {
             if (isVisible) { // menu expanded
@@ -52,9 +54,9 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
 
         vb.vm = vm
 
-        vm.initNavController(findNavController())
-
         vm.mNumberOfFactsAnswered = (activity as MainActivity).getNumberOfFactsAnswered()
+
+        vm.initNavController(findNavController())
 
         vb.buttonGameFragmentTrue.setOnClickListener(this)
         vb.buttonGameFragmentFalse.setOnClickListener(this)
@@ -84,11 +86,8 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
 
             vm.liveFacts.observe(this, Observer {
                 Log.d("MyLogs", "GameFragment. Подписчик liveFacts it = $it")
-                if (!it.isNullOrEmpty() && !vm.isPaused.get()) {
-                    Log.d(
-                        "MyLogs",
-                        "GameFragment. Подписчик liveFacts. mSwipeView = $vb.swipeView"
-                    )
+                if (!it.isNullOrEmpty() && !vm.isPlaying.get()) {
+                    Log.d("MyLogs", "GameFragment. Подписчик liveFacts. Игра не идёт")
                     vb.swipeView.removeAllViews()
                     vm.currentFact.set(vm.liveFacts.value?.get(0))
                     for ((index, fact) in it.withIndex()) {
@@ -104,11 +103,8 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
                 }
             })
 
-            if (vm.isPaused.get()) {
-                //vm.isPaused.set(false)
-                //vm.countDownTimer.resume()
-
-                vm.currentFact.set(vm.liveFacts.value?.get(vm.mNumberOfFactsAnswered.get() + 1))
+            if (vm.isPlaying.get()) {
+                Log.d("MyLogs", "GameFragment. Идёт игра")
                 val numberOfFact = vm.mNumberOfFactsAnswered.get() + 1
                 val subList = vm.liveFacts.value?.subList(vm.mNumberOfFactsAnswered.get(), 30)
                 for ((index, fact) in subList!!.withIndex()) {
@@ -121,8 +117,8 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
                         )
                     )
                 }
-                Log.d("MyLogs", "GameFragment. игра на паузе")
-            } else {
+            } else if (vm.liveFacts.value.isNullOrEmpty()) {
+                Log.d("MyLogs", "GameFragment. Не идёт игра и нет фактов")
                 vm.getUnusedFacts()
                 vm.mNumberOfFactsAnswered.set(0)
                 Log.d(
@@ -156,12 +152,30 @@ class GameFragment : BaseFragment<GameViewModel, FragmentGameBinding>(), View.On
         vm.onSwipe(isTrue)
     }
 
+    override fun onPause() {
+        Log.d("MyLogs", "GameFragment. onPause isBackToApp = $isBackToApp")
+        super.onPause()
+        if (vm.isPlaying.get()) {
+            vm.isPaused.set(true)
+            vm.countDownTimer.pause()
+        }
+        isBackToApp = true
+    }
+
+    override fun onResume() {
+        Log.d("MyLogs", "GameFragment. onResume isBackToApp = $isBackToApp")
+        super.onResume()
+        if (isBackToApp) {
+            vm.isPaused.set(false)
+            vm.countDownTimer.resume()
+        }
+    }
+
     override fun onDestroyView() {
         Log.d("MyLogs", "GameFragment. onDestroyView")
         super.onDestroyView()
-        vm.countDownTimer.pause()
         actionBar.removeOnMenuVisibilityListener(mMenuVisibilityListener)
-        vm.isPaused.set(true)
+        isBackToApp = false
     }
 
     override fun onDestroy() {

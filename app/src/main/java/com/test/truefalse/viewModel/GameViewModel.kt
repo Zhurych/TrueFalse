@@ -42,44 +42,18 @@ class GameViewModel
 
     lateinit var mNumberOfFactsAnswered: ObservableInt
 
-    private lateinit var mNavController: NavController
-    private var mListOfTopics: List<Int>
-    private var mDifficulty: Int = 1
+    lateinit var mNavController: NavController
+    lateinit var mListOfTopics: List<Int>
+    var mDifficulty: Int = 1
 
     init {
         Log.d("MyLogs", "GameViewModel. init")
-        val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
-        val selectedTopics: MutableSet<String>? = sharedPrefs.getStringSet("themes", null)
-
-        Log.d("MyLogs", "GameViewModel. init. selectedTopics = $selectedTopics")
-
-        mDifficulty = sharedPrefs.getString("difficulty", null)?.toInt()!!
-        Log.d("MyLogs", "GameViewModel. init. difficulty = $mDifficulty")
-        mListOfTopics = selectedTopics!!.map { it.toInt() }
+        getPreferences()
     }
 
     // The first parameter is the number of milliseconds from which the count will be made
     // The second parameter is the number of milliseconds that are the callback interval (onTick () method)
-    var countDownTimer = object : CountDownTimer(
-        when (mDifficulty) {
-            1 -> EASY
-            2 -> MEDIUM
-            else -> HARD
-        }, 1_000
-    ) {
-        // Called when the timer reaches zero
-        override fun onFinish() {
-            val bundle = Bundle()
-            bundle.putInt(ANSWERED_FACTS_KEY, mNumberOfFactsAnswered.get())
-            mNavController.navigate(R.id.action_gameFragment_to_defeatFragment, bundle)
-            Log.d("MyLogs", "GameViewModel. CountDownTimer. onFinish")
-        }
-
-        override fun onTick(millisUntilFinished: Long) {
-            secondsLeft.set((millisUntilFinished / 1000).toInt())
-            Log.d("MyLogs", "GameViewModel. CountDownTimer. onTick")
-        }
-    }
+    var countDownTimer = getTimer()
 
     fun onSwipe(isTrue: Boolean) {
         Log.d("MyLogs", "GameViewModel. onSwipe")
@@ -135,10 +109,12 @@ class GameViewModel
 
     override fun newGame(navController: NavController) {
         Log.d("MyLogs", "GameViewModel. New Game")
-        getUnusedFacts()
-        countDownTimer.cancel()
-        mNumberOfFactsAnswered.set(0)
+        if (isPlaying.get()) countDownTimer.cancel()
         isPlaying.set(false)
+        getPreferences()
+        getUnusedFacts()
+        mNumberOfFactsAnswered.set(0)
+        countDownTimer = getTimer()
     }
 
     override fun settings(navController: NavController) {
@@ -151,5 +127,39 @@ class GameViewModel
 
     fun initNavController(navController: NavController) {
         mNavController = navController
+    }
+
+    private fun getPreferences() {
+        val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.applicationContext())
+        val selectedTopics: MutableSet<String>? = sharedPrefs.getStringSet("themes", null)
+
+        Log.d("MyLogs", "GameViewModel. init. selectedTopics = $selectedTopics")
+
+        mDifficulty = sharedPrefs.getString("difficulty", null)?.toInt()!!
+        Log.d("MyLogs", "GameViewModel. init. difficulty = $mDifficulty")
+        mListOfTopics = selectedTopics!!.map { it.toInt() }
+    }
+
+    private fun getTimer(): CountDownTimer {
+        return object : CountDownTimer(
+            when (mDifficulty) {
+                1 -> EASY
+                2 -> MEDIUM
+                else -> HARD
+            }, 1_000
+        ) {
+            // Called when the timer reaches zero
+            override fun onFinish() {
+                isPlaying.set(false)
+                Log.d("MyLogs", "GameViewModel. mNavController = ${mNavController.currentDestination}")
+                mNavController.navigate(R.id.action_gameFragment_to_defeatFragment)
+                Log.d("MyLogs", "GameViewModel. CountDownTimer. onFinish")
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                secondsLeft.set((millisUntilFinished / 1000).toInt())
+                Log.d("MyLogs", "GameViewModel. CountDownTimer. onTick")
+            }
+        }
     }
 }

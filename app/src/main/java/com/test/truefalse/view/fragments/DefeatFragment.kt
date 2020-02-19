@@ -15,7 +15,6 @@ class DefeatFragment : BaseFragment<DefeatViewModel, FragmentDefeatBinding>() {
 
     override fun afterCreateView(view: View, savedInstanceState: Bundle?) {
         Log.d("MyLogs", "DefeatFragment. afterCreateView")
-        vb.numberOfFactsAnswered = arguments?.getInt(ANSWERED_FACTS_KEY)
         vb.vm = vm
     }
 }
